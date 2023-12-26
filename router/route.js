@@ -1,21 +1,43 @@
 import { Router } from "express";
 const router = Router();
 import * as controller from '../controllers/appController.js';
-//import Auth, { localVariables } from '../middleware/auth.js';
 
+router.route('/authenticate').post(controller.verifyUser, (req, res) => res.end());
 
+/** POST: http://localhost:8080/api/register 
+{
+  "username" : "",
+  "password" : "",
+  "email": "",
+  "trustedEmail":""
+}
+*/
+router.route('/register').post(controller.register); 
+ 
 
-/** POST Methods */
-router.route('/register').post(controller.register); // register user
-router.route('/authenticate').post(controller.verifyUser, (req, res) => res.end()); // authenticate user
-router.route('/login').post(controller.verifyUser,controller.login); // login in app
+/** POST: http://localhost:8080/api/login 
+{
+  "username" : "",
+  "password" : ""
+}
+*/
+router.route('/login').post(controller.verifyUser,controller.login);
 
-/** GET Methods */
-router.route('/user/:username').get(controller.getUser) // user with username
+/** POST: http://localhost:8080/api/resetmdp1
+{
+  "email": ""
+}
+*/
+ router.route('/resetmdp1').post(controller.réinitialisermdp); 
 
- //Password
- router.route('/trustedemail').post(controller.demanderResetMotDePasse); 
- router.route('/resetpassword').post(controller.resetMotDePasse); 
+ /** POST: http://localhost:8080/api/resetmdp2
+{
+  "email": "",
+  "otp":"",
+  "mdp":""
+}
+*/
+ router.route('/resetmdp2').post(controller.majmdp); 
 
 
 export default router;

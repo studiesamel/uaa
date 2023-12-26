@@ -16,18 +16,13 @@ export const UserSchema = new mongoose.Schema({
         required : [true, "Please provide a unique email"],
         unique: true,
     },
-    trustedEmail: {
+    trustedemail: {
         type: String,
         required: true,
-        lowercase: true,
-       
-        trim: true,
       },
-      resetToken:{
+      
+      rtoken:{
         type: String,
-      },
-      resetTokenExpiration:{
-        type: Date,
       },
 });
 
